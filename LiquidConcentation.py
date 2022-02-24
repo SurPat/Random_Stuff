@@ -9,10 +9,7 @@ def rescale_frame(frame, percent=80):  # make the video windows a bit smaller
 
 def Colour_Concentration(frame):
     print("Colour Concentration")
-
-    flag_detected = 0
-    Red_Counters = 0
-    while(1):
+    try: 
         text = ""
         frame = rescale_frame(frame)
         out_new = np.uint8(frame)
@@ -26,13 +23,13 @@ def Colour_Concentration(frame):
         cnts = imutils.grab_contours(cnts)
 
         if len(cnts) == 0:
-            flag_empty = 1
+        flag_empty = 1
 
-            flag_detected = 0
-            #         text = "Empty Frame"
-            #         cv2.putText(frame, text, (25,25), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255),2)
-            cv2.imshow("output", frame)
-            cv2.waitKey(30)
+        flag_detected = 0
+        #         text = "Empty Frame"
+        #         cv2.putText(frame, text, (25,25), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255),2)
+        cv2.imshow("output", frame)
+        cv2.waitKey(30)
         # converting  BGR to HSV Frame
         Big_faulty = max(cnts, key=cv2.contourArea)
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -51,22 +48,22 @@ def Colour_Concentration(frame):
 
         contours, hierarchy = cv2.findContours(red, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         if len(contours) != 0:
-            Big_Con = max(contours, key=cv2.contourArea)
-            if (cv2.contourArea(Big_Con) > 5000):
-                x, y, w, h = cv2.boundingRect(Big_Con)
-                frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                if (x > 10 & x < 420):
+        Big_Con = max(contours, key=cv2.contourArea)
+        if (cv2.contourArea(Big_Con) > 5000):
+            x, y, w, h = cv2.boundingRect(Big_Con)
+            frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            if (x > 10 & x < 420):
+                text = "concentration is good"
+        # elif (cv2.contourArea(Big_faulty) > 4000):
+        else:
+            x, y, w, h = cv2.boundingRect(Big_faulty)
+            frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            if (x > 10 & x < 420):
+                if (text == "concentration is good"):
                     text = "concentration is good"
-            # elif (cv2.contourArea(Big_faulty) > 4000):
-            else:
-                x, y, w, h = cv2.boundingRect(Big_faulty)
-                frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
-                if (x > 10 & x < 420):
-                    if (text == "concentration is good"):
-                        text = "concentration is good"
-                    else:
-                        text = "concentration is too high"
+                else:
+                    text = "concentration is too high"
 
         cv2.putText(frame, text, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255))
         cv2.imshow("output", frame)
-        
+    except:
