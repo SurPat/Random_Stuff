@@ -19,8 +19,6 @@ def patt2(frame,length,width):
 
 
 def quad(frame,patt):
-		ret, frame = cap.read()
-		cv2.imshow('check', frame)
 		width,length, __ = frame.shape
 		print(length,width)
 		if patt==1:
