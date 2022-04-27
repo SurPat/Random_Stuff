@@ -16,6 +16,7 @@ class BaslerCam:
         return instant_camera
 
     def CapStart(self,instant_camera):
+        while True:
             img = np.zeros((1, 1))
             if instant_camera.NumReadyBuffers:
                 res = instant_camera.RetrieveResult(1000)
