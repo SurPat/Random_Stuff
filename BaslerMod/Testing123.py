@@ -4,4 +4,4 @@ check = bl.BaslerCam()
 
 cap = check.initiate(0)
 
-check.CapStart(cap)
+check.CamRead(cap)
