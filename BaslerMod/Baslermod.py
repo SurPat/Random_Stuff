@@ -15,7 +15,7 @@ class BaslerCam:
         instant_camera.StartGrabbing(py.GrabStrategy_LatestImages)
         return instant_camera
 
-    def CapStart(self,instant_camera):
+    def CamRead(self,instant_camera):
         while True:
             img = np.zeros((1, 1))
             if instant_camera.NumReadyBuffers:
