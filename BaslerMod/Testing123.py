@@ -1,4 +1,4 @@
-import BaslerLibrary as bl
+import Baslermod as bl
 
 check = bl.BaslerCam()
 
