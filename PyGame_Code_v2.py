@@ -103,7 +103,7 @@ while running:
                 sten_width, sten_height = sten_width * 1.02, sten_height * 1.02
                 fore_img = pygame.transform.scale(fore_img, (sten_width, sten_height))
                 fore_img.set_alpha(80)
-                #rect = fore_img.get_rect()
+                rect = fore_img.get_rect()
                 rect.center = sten_width // 2, sten_height // 2
             if event.button == 5:
                 print("MOUSEWHEEL DOWN")
@@ -112,7 +112,7 @@ while running:
                 sten_width, sten_height = sten_width * 0.98, sten_height * 0.98
                 fore_img = pygame.transform.scale(fore_img, (sten_width, sten_height))
                 fore_img.set_alpha(80)
-                #rect = fore_img.get_rect()
+                rect = fore_img.get_rect()
                 rect.center = sten_width // 2, sten_height // 2
 
     screen.blit(bg_img, (0, 0))
