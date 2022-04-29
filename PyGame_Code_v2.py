@@ -24,12 +24,19 @@ fore_img = cv2.imread(stencil_path)
 '''
 #######################################   Real Image loading  ###########################################
 bg_img = cv2.imread("Obj1.png")
-bg_img = cv2.Canny(bg_img,150,200)
+#############################Canny Edge Detection ########################################
+#bg_img = cv2.Canny(bg_img,150,200)
+#################################Laplacian Detection###################################
+bg_img = cv2.GaussianBlur(bg_img, (3, 3), 0) # to reduce the noise
+bg_img = cv2.cvtColor(bg_img, cv2.COLOR_BGR2GRAY)
+bg_img = cv2.Laplacian(src=bg_img, ddepth=cv2.CV_8U, ksize=5)
+#########################################################################################
 cv2.imwrite("bg_img_con.png",bg_img)
 #cv2.imshow("test", bg_img)
 #cv2.waitKey(0)
 #######################################   Stencil loading  ##############################################
-fore_img = cv2.imread("Obj1_stencil.png")
+StencilImg = "Obj1_stencil.png"
+fore_img = cv2.imread(StencilImg)
 
 height , width = bg_img.shape
 pygame.init()
@@ -92,20 +99,20 @@ while running:
             if event.button == 4:
                 print("MOUSEWHEEL UP")
                 action = "MOUSEWHEEL UP"
-                fore_img = pygame.image.load("Obj1_stencil.png")
+                fore_img = pygame.image.load(StencilImg)
                 sten_width, sten_height = sten_width * 1.02, sten_height * 1.02
                 fore_img = pygame.transform.scale(fore_img, (sten_width, sten_height))
                 fore_img.set_alpha(80)
-                rect = fore_img.get_rect()
+                #rect = fore_img.get_rect()
                 rect.center = sten_width // 2, sten_height // 2
             if event.button == 5:
                 print("MOUSEWHEEL DOWN")
                 action = "MOUSEWHEEL DOWN"
-                fore_img = pygame.image.load("Obj1_stencil.png")
+                fore_img = pygame.image.load(StencilImg)
                 sten_width, sten_height = sten_width * 0.98, sten_height * 0.98
                 fore_img = pygame.transform.scale(fore_img, (sten_width, sten_height))
                 fore_img.set_alpha(80)
-                rect = fore_img.get_rect()
+                #rect = fore_img.get_rect()
                 rect.center = sten_width // 2, sten_height // 2
 
     screen.blit(bg_img, (0, 0))
